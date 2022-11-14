@@ -20,4 +20,14 @@ template<typename T>
 std::ostream& operator<<(std::ostream& out, const Point2<T>& point) {
   return out << "(" << point.x << ", " << point.y << ")";
 }
+
+template<typename LT, typename RT>
+bool operator==(const Point2<LT>& lhs, const Point2<RT>& rhs) {
+  return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+template<typename LT, typename RT>
+bool operator!=(const Point2<LT>& lhs, const Point2<RT>& rhs) {
+  return lhs.x != rhs.x || lhs.y != rhs.y;
+}
 }

@@ -11,3 +11,5 @@ if(BUILD_TESTING)
   target_link_libraries(math_test PRIVATE gtest_main)
   gtest_discover_tests(math_test)
 endif()
+
+add_subdirectory(math/geo)

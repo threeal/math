@@ -12,7 +12,7 @@ struct Point2 {
 };
 
 template<typename T>
-math::Point2<T> make_point(const T& x, const T& y) {
+inline math::Point2<T> make_point(const T& x, const T& y) {
   return {.x=x, .y=y};
 }
 
@@ -29,5 +29,30 @@ bool operator==(const Point2<LT>& lhs, const Point2<RT>& rhs) {
 template<typename LT, typename RT>
 bool operator!=(const Point2<LT>& lhs, const Point2<RT>& rhs) {
   return lhs.x != rhs.x || lhs.y != rhs.y;
+}
+
+template<typename LT, typename RT>
+auto operator+(const Point2<LT>& lhs, const Point2<RT>& rhs) {
+  return math::make_point(lhs.x + rhs.x, lhs.y + rhs.y);
+}
+
+template<typename LT, typename RT>
+auto operator-(const Point2<LT>& lhs, const Point2<RT>& rhs) {
+  return math::make_point(lhs.x - rhs.x, lhs.y - rhs.y);
+}
+
+template<typename LT, typename RT>
+auto operator*(const Point2<LT>& lhs, const RT& rhs) {
+  return math::make_point(lhs.x * rhs, lhs.y * rhs);
+}
+
+template<typename LT, typename RT>
+auto operator*(const LT& lhs, const Point2<RT>& rhs) {
+  return math::make_point(lhs * rhs.x, lhs * rhs.y);
+}
+
+template<typename LT, typename RT>
+auto operator/(const Point2<LT>& lhs, const RT& rhs) {
+  return math::make_point(lhs.x / rhs, lhs.y / rhs);
 }
 }

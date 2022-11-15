@@ -22,3 +22,24 @@ TEST(PointTest, Equality) {
   EXPECT_FALSE(lhs == rhs);
   EXPECT_TRUE(lhs != rhs);
 }
+
+TEST(PointTest, Addition) {
+  const auto point = math::make_point(3, -4);
+  ASSERT_EQ(point + math::make_point(2, 3), math::make_point(5, -1));
+}
+
+TEST(PointTest, Substraction) {
+  const auto point = math::make_point(3, -4);
+  ASSERT_EQ(point - math::make_point(2, 3), math::make_point(1, -7));
+}
+
+TEST(PointTest, Multiplication) {
+  const auto point = math::make_point(3, -4);
+  ASSERT_EQ(point * 3, math::make_point(9, -12));
+  ASSERT_EQ(-2 * point, math::make_point(-6, 8));
+}
+
+TEST(PointTest, Division) {
+  const auto point = math::make_point(6, -8);
+  ASSERT_EQ(point / 2, math::make_point(3, -4));
+}

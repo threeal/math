@@ -13,6 +13,34 @@ struct Point2 {
   Point2<T> operator-() const {
     return {.x = -x, .y = -y};
   }
+
+  template<typename OT>
+  auto& operator+=(const Point2<OT>& other) {
+    x += other.x;
+    y += other.y;
+    return *this;
+  }
+
+  template<typename OT>
+  auto& operator-=(const Point2<OT>& other) {
+    x -= other.x;
+    y -= other.y;
+    return *this;
+  }
+
+  template<typename OT>
+  auto& operator*=(const OT& other) {
+    x *= other;
+    y *= other;
+    return *this;
+  }
+
+  template<typename OT>
+  auto& operator/=(const OT& other) {
+    x /= other;
+    y /= other;
+    return *this;
+  }
 };
 
 template<typename T>

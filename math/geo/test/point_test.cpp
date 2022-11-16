@@ -2,6 +2,11 @@
 #include <gtest/gtest.h>
 #include <sstream>
 
+TEST(PointTest, Negation) {
+  const auto point = math::make_point(3, -4);
+  ASSERT_EQ(-point, math::make_point(-3, 4));
+}
+
 TEST(PointTest, MakePoint) {
   const auto point = math::make_point(3, -4);
   EXPECT_EQ(point.x, 3);
@@ -14,7 +19,7 @@ TEST(PointTest, Ostream) {
 }
 
 TEST(PointTest, Equality) {
-  auto lhs = math::make_point(3, -4);
+  const auto lhs = math::make_point(3, -4);
   auto rhs = lhs;
   ASSERT_TRUE(lhs == rhs);
   ASSERT_FALSE(lhs != rhs);

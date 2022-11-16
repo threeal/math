@@ -9,6 +9,10 @@ struct Point2 {
   using value_type = T;
 
   T x, y;
+
+  Point2<T> operator-() const {
+    return {.x = -x, .y = -y};
+  }
 };
 
 template<typename T>

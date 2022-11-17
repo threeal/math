@@ -8,6 +8,7 @@ project(math)
 if(BUILD_TESTING)
   enable_testing()
   find_package(googletest REQUIRED)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -coverage")
 endif()
 
 add_subdirectory(math/geo)

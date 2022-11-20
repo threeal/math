@@ -1,6 +1,7 @@
 # Math
 
-[![test status](https://img.shields.io/github/workflow/status/threeal/math/build-and-test?label=build%20and%20test)](https://github.com/threeal/math/actions/workflows/build-and-test.yml)
-[![code coverage](https://img.shields.io/coveralls/github/threeal/math)](https://coveralls.io/github/threeal/math)
+[![build status](https://img.shields.io/github/workflow/status/threeal/math/build-and-test?label=build)](https://github.com/threeal/math/actions/workflows/build-and-test.yml)
+[![test result](https://img.shields.io/testspace/pass-ratio/threeal/threeal:math/main)](https://threeal.testspace.com)
+[![code coverage](https://img.shields.io/coveralls/github/threeal/math/main)](https://coveralls.io/github/threeal/math)
 
 A simple math library written in C++

@@ -1,5 +1,6 @@
 #include <math/point.hpp>
 #include <math/testing/arithmetic_tests.hpp>
+#include <math/testing/equality_tests.hpp>
 #include <math/testing/ostream_tests.hpp>
 #include <gtest/gtest.h>
 
@@ -23,13 +24,11 @@ TEST(PointTest, Ostream) {
 }
 
 TEST(PointTest, Equality) {
-  const auto lhs = math::make_point(3, -4);
-  auto rhs = lhs;
-  ASSERT_TRUE(lhs == rhs);
-  ASSERT_FALSE(lhs != rhs);
-  rhs.x += 2;
-  EXPECT_FALSE(lhs == rhs);
-  EXPECT_TRUE(lhs != rhs);
+  math::testing::EqualityTests()
+    .test(P2(3, -4), P2(3, -4), true)
+    .test(P2(1, -4), P2(3, -4), false)
+    .test(P2(3, 0), P2(3, -4), false)
+    .test(P2(1, 0), P2(3, -4), false);
 }
 
 TEST(PointTest, Addition) {

@@ -18,7 +18,7 @@ TEST(PointTest, MakePoint) {
 }
 
 TEST(PointTest, Ostream) {
-  math::testing::ostream_tests()
+  math::testing::OstreamTests()
     .test(math::make_point(3, -4), "(3, -4)")
     .test(math::make_point(0.5, 0.0), "(0.5, 0)");
 }
@@ -32,21 +32,21 @@ TEST(PointTest, Equality) {
 }
 
 TEST(PointTest, Addition) {
-  math::testing::addition_tests()
+  math::testing::AdditionTests()
     .test(P2(3, -4), P2(2, 3), P2(5, -1));
 }
 
 TEST(PointTest, Subtraction) {
-  math::testing::subtraction_tests()
+  math::testing::SubtractionTests()
     .test(P2(3, -4), P2(2, 3), P2(1, -7));
 }
 
 TEST(PointTest, Multiplication) {
-  math::testing::multiplication_tests()
+  math::testing::MultiplicationTests()
     .test_with_swap(P2(3, -4), 3, P2(9, -12));
 }
 
 TEST(PointTest, Division) {
-  math::testing::division_tests()
+  math::testing::DivisionTests()
     .test(P2(6, -8), 2, P2(3, -4));
 }

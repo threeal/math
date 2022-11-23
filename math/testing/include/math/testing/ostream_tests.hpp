@@ -19,6 +19,4 @@ class OstreamTests {
     return *this;
   }
 };
-
-inline OstreamTests ostream_tests() { return OstreamTests(); }
 }

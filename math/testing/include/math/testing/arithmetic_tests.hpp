@@ -4,7 +4,7 @@
 
 namespace math::testing {
 
-enum ArithmeticOperation { Addition, Subtraction, Multiplication, Division };
+enum class ArithmeticOperation { Addition, Subtraction, Multiplication, Division };
 
 template<ArithmeticOperation OP>
 class ArithmeticTests {
@@ -41,8 +41,8 @@ class ArithmeticTests {
   }
 };
 
-inline ArithmeticTests<Addition> addition_tests() { return ArithmeticTests<Addition>(); }
-inline ArithmeticTests<Subtraction> subtraction_tests() { return ArithmeticTests<Subtraction>(); }
-inline ArithmeticTests<Multiplication> multiplication_tests() { return ArithmeticTests<Multiplication>(); }
-inline ArithmeticTests<Division> division_tests() { return ArithmeticTests<Division>(); }
+using AdditionTests = ArithmeticTests<ArithmeticOperation::Addition>;
+using SubtractionTests = ArithmeticTests<ArithmeticOperation::Subtraction>;
+using MultiplicationTests = ArithmeticTests<ArithmeticOperation::Multiplication>;
+using DivisionTests = ArithmeticTests<ArithmeticOperation::Division>;
 }

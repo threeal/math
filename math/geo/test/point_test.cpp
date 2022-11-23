@@ -1,4 +1,5 @@
 #include <math/point.hpp>
+#include <math/testing/ostream_tests.hpp>
 #include <gtest/gtest.h>
 #include <sstream>
 
@@ -38,8 +39,9 @@ TEST(PointTest, MakePoint) {
 }
 
 TEST(PointTest, Ostream) {
-  const auto ss = std::stringstream() << math::Point2<int>{3, -4};
-  ASSERT_STREQ(ss.str().c_str(), "(3, -4)");
+  math::testing::ostream_tests()
+    .test(math::make_point(3, -4), "(3, -4)")
+    .test(math::make_point(0.5, 0.0), "(0.5, 0)");
 }
 
 TEST(PointTest, Equality) {

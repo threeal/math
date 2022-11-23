@@ -1,0 +1,3 @@
+add_library(math_testing INTERFACE)
+target_include_directories(math_testing INTERFACE include)
+target_link_libraries(math_testing INTERFACE gtest)

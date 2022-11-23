@@ -14,7 +14,7 @@ class OstreamTests {
   OstreamTests& test(const T& val, const char* c_str) {
     ss.str(std::string());
     ss << val;
-    EXPECT_STREQ(ss.str().c_str(), c_str) << "Failed on index " << idx;
+    EXPECT_STREQ(ss.str().c_str(), c_str) << "failed on index " << idx;
     ++idx;
     return *this;
   }

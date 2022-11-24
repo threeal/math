@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base_tests.hpp"
 #include <gtest/gtest.h>
 
 namespace math::testing {
@@ -7,21 +8,18 @@ namespace math::testing {
 enum class ArithmeticOperation { Addition, Subtraction, Multiplication, Division };
 
 template<ArithmeticOperation OP>
-class ArithmeticTests {
- private:
-  int idx = 0;
+class ArithmeticTests : public BaseTests {
  public:
   template<typename LT, typename RT, typename T>
   ArithmeticTests& test(LT lhs, const RT& rhs, const T& res) {
-    EXPECT_EQ(operation(lhs, rhs), res) << "failed on index " << idx;
-    EXPECT_EQ(assignment_operation(lhs, rhs), res) << "failed on index " << idx;
-    EXPECT_EQ(lhs, res) << "failed on index " << idx;
-    ++idx;
-    return *this;
+    EXPECT_EQ(operation(lhs, rhs), res) << failed_message();
+    EXPECT_EQ(assignment_operation(lhs, rhs), res) << failed_message();;
+    EXPECT_EQ(lhs, res) << failed_message();;
+    return next<ArithmeticTests>();
   }
   template<typename LT, typename RT, typename T>
   inline ArithmeticTests& test_with_swap(const LT& lhs, const RT& rhs, const T& res) {
-    EXPECT_EQ(operation(rhs, lhs), res) << "failed on index " << idx;
+    EXPECT_EQ(operation(rhs, lhs), res) << failed_message();
     return test(lhs, rhs, res);
   }
  private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <type_traits>
 
 namespace math {
 
@@ -9,6 +10,12 @@ struct Point2 {
   using value_type = T;
 
   T x, y;
+
+  template<typename OT>
+  explicit operator Point2<OT>() const {
+    if constexpr (std::is_same_v<T,OT>) return *this;
+    else return {.x=static_cast<OT>(x), .y=static_cast<OT>(y)};
+  }
 
   Point2<T> operator-() const {
     return {.x = -x, .y = -y};

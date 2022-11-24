@@ -1,35 +1,10 @@
 #include <math/point.hpp>
+#include <math/testing/tests.hpp>
 #include <gtest/gtest.h>
-#include <sstream>
 
-TEST(PointTest, Negation) {
-  const auto point = math::make_point(3, -4);
-  ASSERT_EQ(-point, math::make_point(-3, 4));
-}
+#define P(x, y) math::make_point(x, y)
 
-TEST(PointTest, AssignmentAddition) {
-  auto point = math::make_point(3, -4);
-  ASSERT_EQ(point += math::make_point(2, 3), math::make_point(5, -1));
-  ASSERT_EQ(point, math::make_point(5, -1));
-}
-
-TEST(PointTest, AssignmentSubstraction) {
-  auto point = math::make_point(3, -4);
-  ASSERT_EQ(point -= math::make_point(2, 3), math::make_point(1, -7));
-  ASSERT_EQ(point, math::make_point(1, -7));
-}
-
-TEST(PointTest, AssignmentMultiplication) {
-  auto point = math::make_point(3, -4);
-  ASSERT_EQ(point *= 3, math::make_point(9, -12));
-  ASSERT_EQ(point, math::make_point(9, -12));
-}
-
-TEST(PointTest, AssignmentDivision) {
-  auto point = math::make_point(6, -8);
-  ASSERT_EQ(point /= 2, math::make_point(3, -4));
-  ASSERT_EQ(point, math::make_point(3, -4));
-}
+using Flags = math::testing::ArithmeticTestsFlags;
 
 TEST(PointTest, MakePoint) {
   const auto point = math::make_point(3, -4);
@@ -38,37 +13,54 @@ TEST(PointTest, MakePoint) {
 }
 
 TEST(PointTest, Ostream) {
-  const auto ss = std::stringstream() << math::Point2<int>{3, -4};
-  ASSERT_STREQ(ss.str().c_str(), "(3, -4)");
+  math::testing::OstreamTests()
+    .test(P(3, -4), "(3, -4)")
+    .test(P(0.5, 0.0), "(0.5, 0)");
+}
+
+TEST(PointTest, ExplicitConversion) {
+  math::testing::ExplicitConversionTests()
+    .test(P(3, -4), P(3, -4))
+    .test(P(3.1, -4.1), P(3, -4));
 }
 
 TEST(PointTest, Equality) {
-  const auto lhs = math::make_point(3, -4);
-  auto rhs = lhs;
-  ASSERT_TRUE(lhs == rhs);
-  ASSERT_FALSE(lhs != rhs);
-  rhs.x += 2;
-  EXPECT_FALSE(lhs == rhs);
-  EXPECT_TRUE(lhs != rhs);
+  math::testing::EqualityTests()
+    .test(P(3, -4), P(3, -4), true)
+    .test(P(1, -4), P(3, -4), false)
+    .test(P(3, 0), P(3, -4), false)
+    .test(P(1, 0), P(3, -4), false)
+    .test(P(3, -4), P(3.0, -4.0), true)
+    .test(P(1, -4), P(3.0, -4.0), false);
+}
+
+TEST(PointTest, Negation) {
+  math::testing::NegationTests()
+    .test(P(3, -4), P(-3, 4));
 }
 
 TEST(PointTest, Addition) {
-  const auto point = math::make_point(3, -4);
-  ASSERT_EQ(point + math::make_point(2, 3), math::make_point(5, -1));
+  math::testing::AdditionTests<>()
+    .test(P(3, -4), P(2, 3), P(5, -1))
+    .test(P(3, -4), P(0.5, 1.5), P(3.5, -2.5));
 }
 
-TEST(PointTest, Substraction) {
-  const auto point = math::make_point(3, -4);
-  ASSERT_EQ(point - math::make_point(2, 3), math::make_point(1, -7));
+TEST(PointTest, Subtraction) {
+  math::testing::SubtractionTests<>()
+    .test(P(3, -4), P(2, 3), P(1, -7))
+    .test(P(3, -4), P(0.5, 1.5), P(2.5, -5.5));;
 }
 
 TEST(PointTest, Multiplication) {
-  const auto point = math::make_point(3, -4);
-  ASSERT_EQ(point * 3, math::make_point(9, -12));
-  ASSERT_EQ(-2 * point, math::make_point(-6, 8));
+  math::testing::MultiplicationTests<Flags::NoAssignmentOperationSwap>()
+    .test(P(3, -4), 3, P(9, -12))
+    .test(P(3, -4), 0.5, P(1.5, -2.0))
+    .test(P(0.5, 1.5), 3, P(1.5, 4.5));
 }
 
 TEST(PointTest, Division) {
-  const auto point = math::make_point(6, -8);
-  ASSERT_EQ(point / 2, math::make_point(3, -4));
+  math::testing::DivisionTests<Flags::NoSwap>()
+    .test(P(6, -8), 2, P(3, -4))
+    .test(P(6, -8), 2.5, P(2.4, -3.2))
+    .test(P(0.5, 1.5), 2, P(0.25, 0.75));
 }

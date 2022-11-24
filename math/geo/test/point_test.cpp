@@ -7,6 +7,8 @@
 
 #define P(x, y) math::make_point(x, y)
 
+using Flags = math::testing::ArithmeticTestsFlags;
+
 TEST(PointTest, MakePoint) {
   const auto point = math::make_point(3, -4);
   EXPECT_EQ(point.x, 3);
@@ -39,31 +41,27 @@ TEST(PointTest, Negation) {
 }
 
 TEST(PointTest, Addition) {
-  math::testing::AdditionTests()
+  math::testing::AdditionTests<>()
     .test(P(3, -4), P(2, 3), P(5, -1))
-    .test(P(3, -4), P(0.5, 1.5), P(3.5, -2.5))
-    .test(P(0.25, 0.5), P(2, 3), P(2.25, 3.5));
+    .test(P(3, -4), P(0.5, 1.5), P(3.5, -2.5));
 }
 
 TEST(PointTest, Subtraction) {
-  math::testing::SubtractionTests()
+  math::testing::SubtractionTests<>()
     .test(P(3, -4), P(2, 3), P(1, -7))
-    .test(P(3, -4), P(0.5, 1.5), P(2.5, -5.5))
-    .test(P(0.25, 0.5), P(2, 3), P(-1.75, -2.5));
+    .test(P(3, -4), P(0.5, 1.5), P(2.5, -5.5));;
 }
 
 TEST(PointTest, Multiplication) {
-  math::testing::MultiplicationTests()
-    .test_with_swap(P(3, -4), 3, P(9, -12))
-    .test_with_swap(P(3, -4), 0.5, P(1.5, -2.0))
-    .test_with_swap(P(0.5, 1.5), 3, P(1.5, 4.5))
-    .test_with_swap(P(0.5, 1.5), 0.5, P(0.25, 0.75));
+  math::testing::MultiplicationTests<Flags::NoAssignmentOperationSwap>()
+    .test(P(3, -4), 3, P(9, -12))
+    .test(P(3, -4), 0.5, P(1.5, -2.0))
+    .test(P(0.5, 1.5), 3, P(1.5, 4.5));
 }
 
 TEST(PointTest, Division) {
-  math::testing::DivisionTests()
+  math::testing::DivisionTests<Flags::NoSwap>()
     .test(P(6, -8), 2, P(3, -4))
     .test(P(6, -8), 2.5, P(2.4, -3.2))
-    .test(P(0.5, 1.5), 2, P(0.25, 0.75))
-    .test(P(0.5, 1.5), 2.5, P(0.2, 0.6));
+    .test(P(0.5, 1.5), 2, P(0.25, 0.75));
 }

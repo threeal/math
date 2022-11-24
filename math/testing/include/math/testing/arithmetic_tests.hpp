@@ -2,30 +2,48 @@
 
 #include "base_tests.hpp"
 #include <gtest/gtest.h>
-#include <type_traits>
 
 namespace math::testing {
 
 enum class ArithmeticOperation { Addition, Subtraction, Multiplication, Division };
 
-template<ArithmeticOperation OP>
+enum ArithmeticTestsFlags : int {
+  NoOperation = 1,
+  NoAssignmentOperation = 2,
+  NoOperationSwap = 4,
+  NoAssignmentOperationSwap = 8,
+  NoSwap = 12
+};
+
+template<ArithmeticOperation OP, int OPT=0>
 class ArithmeticTests : public BaseTests {
  public:
   template<typename LT, typename RT, typename T>
   ArithmeticTests& test(LT lhs, const RT& rhs, const T& res) {
-    EXPECT_EQ(operation(lhs, rhs), res) << failed_message();
-    if constexpr (std::is_same_v<LT,RT>) {
-      EXPECT_EQ(assignment_operation(lhs, rhs), res) << failed_message();
-      EXPECT_EQ(lhs, res) << failed_message();
+    if constexpr ((OPT & ArithmeticTestsFlags::NoOperation) == 0) {
+      EXPECT_EQ(operation(lhs, rhs), res) << failed_message();
+      if constexpr ((OPT & ArithmeticTestsFlags::NoOperationSwap) == 0)
+        EXPECT_EQ(operation(rhs, lhs), inverse(res)) << failed_message();
+    }
+    if constexpr ((OPT & ArithmeticTestsFlags::NoAssignmentOperation) == 0) {
+      test_assignment(lhs, rhs, static_cast<LT>(res));
+      if constexpr ((OPT & ArithmeticTestsFlags::NoAssignmentOperationSwap) == 0)
+        test_assignment(rhs, lhs, static_cast<RT>(inverse(res)));
     }
     return next<ArithmeticTests>();
   }
-  template<typename LT, typename RT, typename T>
-  inline ArithmeticTests& test_with_swap(const LT& lhs, const RT& rhs, const T& res) {
-    EXPECT_EQ(operation(rhs, lhs), res) << failed_message();
-    return test(lhs, rhs, res);
-  }
  private:
+  template<typename LT, typename RT, typename T>
+  void test_assignment(LT lhs, const RT& rhs, const T& res) {
+    EXPECT_EQ(assignment_operation(lhs, rhs), res) << failed_message();
+    EXPECT_EQ(lhs, res) << failed_message();
+  }
+  template<typename T>
+  inline auto inverse(const T& val) const {
+    if constexpr (OP == ArithmeticOperation::Subtraction) return -val;
+    else if constexpr (OP == ArithmeticOperation::Division) return 1 / val;
+    else return val;
+  }
   template<typename LT, typename RT>
   inline auto operation(const LT& lhs, const RT& rhs) const {
     if constexpr (OP == ArithmeticOperation::Addition) return lhs + rhs;
@@ -42,8 +60,8 @@ class ArithmeticTests : public BaseTests {
   }
 };
 
-using AdditionTests = ArithmeticTests<ArithmeticOperation::Addition>;
-using SubtractionTests = ArithmeticTests<ArithmeticOperation::Subtraction>;
-using MultiplicationTests = ArithmeticTests<ArithmeticOperation::Multiplication>;
-using DivisionTests = ArithmeticTests<ArithmeticOperation::Division>;
+template<int OPT=0> using AdditionTests = ArithmeticTests<ArithmeticOperation::Addition, OPT>;
+template<int OPT=0> using SubtractionTests = ArithmeticTests<ArithmeticOperation::Subtraction, OPT>;
+template<int OPT=0> using MultiplicationTests = ArithmeticTests<ArithmeticOperation::Multiplication, OPT>;
+template<int OPT=0> using DivisionTests = ArithmeticTests<ArithmeticOperation::Division, OPT>;
 }

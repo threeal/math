@@ -12,7 +12,7 @@ struct Point2 {
   T x, y;
 
   template<typename OT>
-  explicit operator Point2<OT>() {
+  explicit operator Point2<OT>() const {
     if constexpr (std::is_same_v<T,OT>) return *this;
     else return {.x=static_cast<OT>(x), .y=static_cast<OT>(y)};
   }

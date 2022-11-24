@@ -11,6 +11,8 @@ class EqualityTests : public BaseTests {
   EqualityTests& test(const LT& lhs, const RT& rhs, bool expect_equal) {
     EXPECT_EQ(lhs == rhs, expect_equal) << failed_message();
     EXPECT_EQ(lhs != rhs, !expect_equal) << failed_message();
+    EXPECT_EQ(rhs == lhs, expect_equal) << failed_message();
+    EXPECT_EQ(rhs != lhs, !expect_equal) << failed_message();
     return next<EqualityTests>();
   }
 };

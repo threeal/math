@@ -10,6 +10,7 @@ class NegationTests : public BaseTests {
   template<typename LT, typename RT>
   NegationTests& test(const LT& val, const RT& res) {
     EXPECT_EQ(-val, res) << failed_message();
+    EXPECT_EQ(-(-val), val) << failed_message();
     return next<NegationTests>();
   }
 };

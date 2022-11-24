@@ -16,6 +16,6 @@ class OstreamTests : public BaseTests{
     ss << val;
     EXPECT_STREQ(ss.str().c_str(), c_str) << failed_message();
     return next<OstreamTests>();
-  }
+  }  // LCOV_EXCL_LINE
 };
 }

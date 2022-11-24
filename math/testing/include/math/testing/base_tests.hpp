@@ -10,7 +10,7 @@ class BaseTests {
  public:
   struct FailedMessage { int idx; };
   FailedMessage failed_message() const { return {.idx=idx}; }
-  template<typename T>
+  template<typename T=BaseTests>
   T& next() {
     ++idx;
     return static_cast<T&>(*this);

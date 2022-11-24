@@ -14,6 +14,6 @@ class EqualityTests : public BaseTests {
     EXPECT_EQ(rhs == lhs, expect_equal) << failed_message();
     EXPECT_EQ(rhs != lhs, !expect_equal) << failed_message();
     return next<EqualityTests>();
-  }
+  }  // LCOV_EXCL_LINE
 };
 }

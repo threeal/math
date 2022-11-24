@@ -12,6 +12,6 @@ class NegationTests : public BaseTests {
     EXPECT_EQ(-val, res) << failed_message();
     EXPECT_EQ(-(-val), val) << failed_message();
     return next<NegationTests>();
-  }
+  }  // LCOV_EXCL_LINE
 };
 }

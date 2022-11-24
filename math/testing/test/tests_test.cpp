@@ -1,4 +1,5 @@
 #include <math/testing/arithmetic_tests.hpp>
+#include <math/testing/base_tests.hpp>
 #include <math/testing/equality_tests.hpp>
 #include <math/testing/negation_tests.hpp>
 #include <math/testing/ostream_tests.hpp>
@@ -46,8 +47,9 @@ TEST(TestsTest, DivisionTests) {
 }
 
 TEST(TestsTest, FailedMessage) {
-  auto tests = math::testing::OstreamTests();
-  tests.test(tests.failed_message(), "failed on index 0");
-  tests.test(tests.failed_message(), "failed on index 1");
-  tests.test(tests.failed_message(), "failed on index 2");
+  auto tests = math::testing::BaseTests();
+  auto ostream_tests = math::testing::OstreamTests();
+  ostream_tests.test(tests.failed_message(), "failed on index 0");
+  ostream_tests.test(tests.next<>().failed_message(), "failed on index 1");
+  ostream_tests.test(tests.next<>().failed_message(), "failed on index 2");
 }

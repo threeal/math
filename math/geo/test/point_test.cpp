@@ -4,12 +4,7 @@
 #include <math/testing/ostream_tests.hpp>
 #include <gtest/gtest.h>
 
-#define P2(x, y) math::make_point(x, y)
-
-TEST(PointTest, Negation) {
-  const auto point = math::make_point(3, -4);
-  ASSERT_EQ(-point, math::make_point(-3, 4));
-}
+#define P(x, y) math::make_point(x, y)
 
 TEST(PointTest, MakePoint) {
   const auto point = math::make_point(3, -4);
@@ -19,34 +14,38 @@ TEST(PointTest, MakePoint) {
 
 TEST(PointTest, Ostream) {
   math::testing::OstreamTests()
-    .test(math::make_point(3, -4), "(3, -4)")
-    .test(math::make_point(0.5, 0.0), "(0.5, 0)");
+    .test(P(3, -4), "(3, -4)")
+    .test(P(0.5, 0.0), "(0.5, 0)");
 }
 
 TEST(PointTest, Equality) {
   math::testing::EqualityTests()
-    .test(P2(3, -4), P2(3, -4), true)
-    .test(P2(1, -4), P2(3, -4), false)
-    .test(P2(3, 0), P2(3, -4), false)
-    .test(P2(1, 0), P2(3, -4), false);
+    .test(P(3, -4), P(3, -4), true)
+    .test(P(1, -4), P(3, -4), false)
+    .test(P(3, 0), P(3, -4), false)
+    .test(P(1, 0), P(3, -4), false);
+}
+
+TEST(PointTest, Negation) {
+  ASSERT_EQ(-P(3, -4), P(-3, 4));
 }
 
 TEST(PointTest, Addition) {
   math::testing::AdditionTests()
-    .test(P2(3, -4), P2(2, 3), P2(5, -1));
+    .test(P(3, -4), P(2, 3), P(5, -1));
 }
 
 TEST(PointTest, Subtraction) {
   math::testing::SubtractionTests()
-    .test(P2(3, -4), P2(2, 3), P2(1, -7));
+    .test(P(3, -4), P(2, 3), P(1, -7));
 }
 
 TEST(PointTest, Multiplication) {
   math::testing::MultiplicationTests()
-    .test_with_swap(P2(3, -4), 3, P2(9, -12));
+    .test_with_swap(P(3, -4), 3, P(9, -12));
 }
 
 TEST(PointTest, Division) {
   math::testing::DivisionTests()
-    .test(P2(6, -8), 2, P2(3, -4));
+    .test(P(6, -8), 2, P(3, -4));
 }

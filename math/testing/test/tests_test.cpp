@@ -5,6 +5,12 @@ TEST(TestsTest, OstreamTests) {
   math::testing::OstreamTests().test(5, "5");
 }
 
+TEST(TestsTest, ExplicitConversionTests) {
+  math::testing::ExplicitConversionTests()
+    .test(2, 2)
+    .test(2.2, 2);
+}
+
 TEST(TestsTest, EqualityTests) {
   math::testing::EqualityTests()
     .test(2, 2, true)

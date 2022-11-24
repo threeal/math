@@ -1,8 +1,4 @@
-#include <math/testing/arithmetic_tests.hpp>
-#include <math/testing/base_tests.hpp>
-#include <math/testing/equality_tests.hpp>
-#include <math/testing/negation_tests.hpp>
-#include <math/testing/ostream_tests.hpp>
+#include <math/testing/tests.hpp>
 #include <gtest/gtest.h>
 
 TEST(TestsTest, OstreamTests) {

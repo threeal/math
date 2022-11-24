@@ -10,9 +10,9 @@ class EqualityTests {
  public:
   template<typename LT, typename RT>
   EqualityTests& test(const LT& lhs, const RT& rhs, bool expect_equal) {
-    ++idx;
     EXPECT_EQ(lhs == rhs, expect_equal) << "failed on index " << idx;
     EXPECT_EQ(lhs != rhs, !expect_equal) << "failed on index " << idx;
+    ++idx;
     return *this;
   }
 };

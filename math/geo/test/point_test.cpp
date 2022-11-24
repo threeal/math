@@ -1,6 +1,7 @@
 #include <math/point.hpp>
 #include <math/testing/arithmetic_tests.hpp>
 #include <math/testing/equality_tests.hpp>
+#include <math/testing/negation_tests.hpp>
 #include <math/testing/ostream_tests.hpp>
 #include <gtest/gtest.h>
 
@@ -27,7 +28,8 @@ TEST(PointTest, Equality) {
 }
 
 TEST(PointTest, Negation) {
-  ASSERT_EQ(-P(3, -4), P(-3, 4));
+  math::testing::NegationTests()
+    .test(P(3, -4), P(-3, 4));
 }
 
 TEST(PointTest, Addition) {

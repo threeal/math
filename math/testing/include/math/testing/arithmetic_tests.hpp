@@ -2,6 +2,7 @@
 
 #include "base_tests.hpp"
 #include <gtest/gtest.h>
+#include <type_traits>
 
 namespace math::testing {
 
@@ -13,8 +14,10 @@ class ArithmeticTests : public BaseTests {
   template<typename LT, typename RT, typename T>
   ArithmeticTests& test(LT lhs, const RT& rhs, const T& res) {
     EXPECT_EQ(operation(lhs, rhs), res) << failed_message();
-    EXPECT_EQ(assignment_operation(lhs, rhs), res) << failed_message();;
-    EXPECT_EQ(lhs, res) << failed_message();;
+    if constexpr (std::is_same_v<LT,RT>) {
+      EXPECT_EQ(assignment_operation(lhs, rhs), res) << failed_message();
+      EXPECT_EQ(lhs, res) << failed_message();
+    }
     return next<ArithmeticTests>();
   }
   template<typename LT, typename RT, typename T>

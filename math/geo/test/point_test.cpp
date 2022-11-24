@@ -19,6 +19,10 @@ TEST(PointTest, Ostream) {
     .test(P(0.5, 0.0), "(0.5, 0)");
 }
 
+TEST(PointTest, ExplicitConversion) {
+  EXPECT_EQ(static_cast<math::Point2<int>>(P(1.2, 3.2)), P(1, 3));
+}
+
 TEST(PointTest, Equality) {
   math::testing::EqualityTests()
     .test(P(3, -4), P(3, -4), true)

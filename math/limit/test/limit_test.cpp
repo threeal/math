@@ -24,3 +24,13 @@ TEST(LimitTest, Equality) {
     .test(L(-1, 1), L(-1.0, 1.0), true)
     .test(L(0, 1), L(-1.0, 1.0), false);
 }
+
+TEST(LimitTest, Center) {
+  EXPECT_EQ(L(-1, 1).center(), 0);
+  EXPECT_EQ(L(0, 5).center(), 2);
+  EXPECT_EQ(L(0.0, 5.0).center(), 2.5);
+}
+
+TEST(LimitTest, Range) {
+  EXPECT_EQ(L(-1, 1).range(), 2);
+}

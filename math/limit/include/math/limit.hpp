@@ -9,6 +9,14 @@ struct Limit {
   using value_type = T;
 
   T min, max;
+
+  auto center() const {
+    return (min + max) / 2;
+  }
+
+  auto range() const {
+    return max - min;
+  }
 };
 
 template<typename T>

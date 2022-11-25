@@ -31,6 +31,19 @@ struct Limit {
       ? other < min || other > max
       : other < max || other > min;
   }
+
+  template<typename OT>
+  auto clamp(const OT& other) const {
+    if (min < max) {
+      if (other < min) return min;
+      if (other > max) return max;
+      return other;
+    } else {
+      if (other < max) return max;
+      if (other > min) return min;
+      return other;
+    }
+  }
 };
 
 template<typename T>

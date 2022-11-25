@@ -67,3 +67,13 @@ TEST(LimitTest, InsideOutside) {
     .test(L(-0.5, 1.5), 0, true)
     .test(L(-0.5, 1.5), -1, false);
 }
+
+TEST(LimitTest, Clamp) {
+  EXPECT_EQ(L(-1, 1).clamp(0), 0);
+  EXPECT_EQ(L(-1, 1).clamp(-2), -1);
+  EXPECT_EQ(L(-1, 1).clamp(3), 1);
+  // test inverted min max
+  EXPECT_EQ(L(1, -1).clamp(0), 0);
+  EXPECT_EQ(L(1, -1).clamp(-2), -1);
+  EXPECT_EQ(L(1, -1).clamp(3), 1);
+}

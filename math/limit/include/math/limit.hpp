@@ -10,6 +10,11 @@ struct Limit {
 
   T min, max;
 
+  Limit<T> normalize() const {
+    if (min <= max) return *this;
+    return {.min=max, .max=min};
+  }
+
   auto center() const {
     return (min + max) / 2;
   }
@@ -20,29 +25,22 @@ struct Limit {
 
   template<typename OT>
   bool is_inside(const OT& other) const {
-    return min < max
-      ? other >= min && other <= max
-      : other >= max && other <= min;
+    if (min > max) return normalize().is_inside(other);
+    return other >= min && other <= max;
   }
 
   template<typename OT>
   bool is_outside(const OT& other) const {
-    return min < max
-      ? other < min || other > max
-      : other < max || other > min;
+    if (min > max) return normalize().is_outside(other);
+    return other < min || other > max;
   }
 
   template<typename OT>
-  auto clamp(const OT& other) const {
-    if (min < max) {
-      if (other < min) return min;
-      if (other > max) return max;
-      return other;
-    } else {
-      if (other < max) return max;
-      if (other > min) return min;
-      return other;
-    }
+  T clamp(const OT& other) const {
+    if (min > max) return normalize().clamp(other);
+    if (other < min) return min;
+    if (other > max) return max;
+    return other;
   }
 };
 

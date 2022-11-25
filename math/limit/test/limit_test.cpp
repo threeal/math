@@ -25,6 +25,11 @@ TEST(LimitTest, Equality) {
     .test(L(0, 1), L(-1.0, 1.0), false);
 }
 
+TEST(LimitTest, Normalize) {
+  EXPECT_EQ(L(-1, 1).normalize(), L(-1, 1));
+  EXPECT_EQ(L(1, -1).normalize(), L(-1, 1));
+}
+
 TEST(LimitTest, Center) {
   EXPECT_EQ(L(-1, 1).center(), 0);
   EXPECT_EQ(L(0, 5).center(), 2);

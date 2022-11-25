@@ -17,6 +17,20 @@ struct Limit {
   auto range() const {
     return max - min;
   }
+
+  template<typename OT>
+  bool is_inside(const OT& other) const {
+    return min < max
+      ? other >= min && other <= max
+      : other >= max && other <= min;
+  }
+
+  template<typename OT>
+  bool is_outside(const OT& other) const {
+    return min < max
+      ? other < min || other > max
+      : other < max || other > min;
+  }
 };
 
 template<typename T>

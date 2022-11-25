@@ -14,8 +14,7 @@ TEST(PointTest, MakePoint) {
 
 TEST(PointTest, Ostream) {
   math::testing::OstreamTests()
-    .test(P(3, -4), "(3, -4)")
-    .test(P(0.5, 0.0), "(0.5, 0)");
+    .test(P(3, -4), "(3, -4)");
 }
 
 TEST(PointTest, ExplicitConversion) {

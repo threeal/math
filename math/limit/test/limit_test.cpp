@@ -81,4 +81,9 @@ TEST(LimitTest, Clamp) {
   EXPECT_EQ(L(1, -1).clamp(0), 0);
   EXPECT_EQ(L(1, -1).clamp(-2), -1);
   EXPECT_EQ(L(1, -1).clamp(3), 1);
+  // test cross type
+  EXPECT_EQ(L(-1, 1).clamp(0.2), 0);
+  EXPECT_EQ(L(-1, 1).clamp(-2.2), -1);
+  EXPECT_EQ(L(-0.5, 1.5).clamp(1), 1.0);
+  EXPECT_EQ(L(-0.5, 1.5).clamp(2), 1.5);
 }

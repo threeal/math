@@ -1,0 +1,11 @@
+project = 'math'
+copyright = '2022, Alfi Maulana'
+author = 'Alfi Maulana'
+
+extensions = ['breathe']
+
+breathe_projects = {"math": "../xml/"}
+breathe_default_project = "math"
+
+html_theme = 'sphinx_rtd_theme'
+html_static_path = ['_static']

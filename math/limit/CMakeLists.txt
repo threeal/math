@@ -1,5 +1,6 @@
 add_library(math_limit INTERFACE)
 target_include_directories(math_limit INTERFACE include)
+target_link_libraries(math_limit INTERFACE math_utils)
 
 if(BUILD_TESTING)
   add_executable(math_limit_test test/limit_test.cpp)

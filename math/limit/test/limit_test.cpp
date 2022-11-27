@@ -87,3 +87,22 @@ TEST(LimitTest, Clamp) {
   EXPECT_EQ(L(-0.5, 1.5).clamp(1), 1.0);
   EXPECT_EQ(L(-0.5, 1.5).clamp(2), 1.5);
 }
+
+TEST(LimitTest, Fold) {
+  EXPECT_EQ(L(-2, 2).fold(0), 0);
+  EXPECT_EQ(L(-2, 2).fold(5), 1);
+  EXPECT_EQ(L(-2, 2).fold(-5), -1);
+  // test floating point
+  EXPECT_EQ(L(-1.5, 2.75).fold(0.5), 0.5);
+  EXPECT_EQ(L(-1.5, 2.75).fold(5.75), 1.5);
+  EXPECT_EQ(L(-1.5, 2.75).fold(-9.25), -0.75);
+  // test inverted min max
+  EXPECT_EQ(L(2, -2).fold(0), 0);
+  EXPECT_EQ(L(2, -2).fold(5), 1);
+  EXPECT_EQ(L(2, -2).fold(-5), -1);
+  // test cross type
+  EXPECT_EQ(L(-2, 2).fold(0.2), 0);
+  EXPECT_EQ(L(-2, 2).fold(5.2), 1);
+  EXPECT_EQ(L(-1.5, 2.75).fold(0), 0);
+  EXPECT_EQ(L(-1.5, 2.75).fold(-9), -0.5);
+}

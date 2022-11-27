@@ -13,5 +13,6 @@ if(BUILD_TESTING)
 endif()
 
 add_subdirectory(math/geo)
-add_subdirectory(math/limit)
 add_subdirectory(math/utils)
+
+add_subdirectory(math/limit)

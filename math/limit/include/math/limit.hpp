@@ -1,5 +1,6 @@
 #pragma once
 
+#include <math/utils.hpp>
 #include <ostream>
 
 namespace math {
@@ -41,6 +42,13 @@ struct Limit {
     if (other < min) return min;
     if (other > max) return max;
     return other;
+  }
+
+  template<typename OT>
+  T fold(const OT& other) const {
+    if (min > max) return normalize().fold(other);
+    const auto range = this->range();
+    return min + math::mod(range + math::mod(other - min, range), range);
   }
 };
 

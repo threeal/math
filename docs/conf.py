@@ -4,7 +4,7 @@ author = 'Alfi Maulana'
 
 extensions = ['breathe']
 
-breathe_projects = {"math": "../xml/"}
+breathe_projects = {"math": "_xml"}
 breathe_default_project = "math"
 
 html_theme = 'sphinx_rtd_theme'

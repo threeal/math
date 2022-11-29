@@ -1,17 +1,17 @@
 #include <math/testing/tests.hpp>
-#include <gtest/gtest.h>
+#include <catch2/catch_test_macros.hpp>
 
-TEST(TestsTest, OstreamTests) {
+TEST_CASE("test `math::testing::OstreamTests`") {
   math::testing::OstreamTests().test(5, "5");
 }
 
-TEST(TestsTest, ExplicitConversionTests) {
+TEST_CASE("test `math::testing::ExplicitConversionTests`") {
   math::testing::ExplicitConversionTests()
     .test(2, 2)
     .test(2.2, 2);
 }
 
-TEST(TestsTest, EqualityTests) {
+TEST_CASE("test `math::testing::EqualityTests`") {
   math::testing::EqualityTests()
     .test(2, 2, true)
     .test(2, 3, false)
@@ -19,39 +19,31 @@ TEST(TestsTest, EqualityTests) {
     .test(2, 2.5, false);
 }
 
-TEST(TestsTest, NegationTests) {
+TEST_CASE("test `math::testing::negationTests`") {
   math::testing::NegationTests().test(2, -2);
 }
 
-TEST(TestsTest, AdditionTests) {
+TEST_CASE("test `math::testing::AdditionTests`") {
   math::testing::AdditionTests<>()
     .test(2, 3, 5)
     .test(2, 0.5, 2.5);
 }
 
-TEST(TestsTest, SubtractionTests) {
+TEST_CASE("test `math::testing::SubtractionTests`") {
   math::testing::SubtractionTests<>()
     .test(2, 3, -1)
     .test(2, 0.5, 1.5);
 }
 
-TEST(TestsTest, MultiplicationTests) {
+TEST_CASE("test `math::testing::MultiplicationTests`") {
   math::testing::MultiplicationTests<>()
     .test(2, 3, 6)
     .test(2, 0.25, 0.5);
 }
 
-TEST(TestsTest, DivisionTests) {
+TEST_CASE("test `math::testing::DivisionTests`") {
   math::testing::DivisionTests<>()
     .test(6, 3, 2)
     .test(7, 3, 2)
     .test(6, 2.5, 2.4);
-}
-
-TEST(TestsTest, FailedMessage) {
-  auto tests = math::testing::BaseTests();
-  auto ostream_tests = math::testing::OstreamTests();
-  ostream_tests.test(tests.failed_message(), "failed on index 0");
-  ostream_tests.test(tests.next<>().failed_message(), "failed on index 1");
-  ostream_tests.test(tests.next<>().failed_message(), "failed on index 2");
 }

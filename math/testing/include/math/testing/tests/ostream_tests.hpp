@@ -1,8 +1,9 @@
 #pragma once
 
 #include "base_tests.hpp"
-#include <gtest/gtest.h>
+#include <catch2/catch_test_macros.hpp>
 #include <sstream>
+#include <cstring>
 
 namespace math::testing {
 
@@ -12,9 +13,10 @@ class OstreamTests : public BaseTests{
  public:
   template<typename T>
   OstreamTests& test(const T& val, const char* c_str) {
+    INFO("Test number " << idx);
     ss.str(std::string());
     ss << val;
-    EXPECT_STREQ(ss.str().c_str(), c_str) << failed_message();
+    CHECK(std::strcmp(ss.str().c_str(), c_str) == 0);
     return next<OstreamTests>();
   }  // LCOV_EXCL_LINE
 };

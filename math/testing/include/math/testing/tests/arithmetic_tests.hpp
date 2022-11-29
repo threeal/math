@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_tests.hpp"
-#include <gtest/gtest.h>
+#include <catch2/catch_test_macros.hpp>
 
 namespace math::testing {
 
@@ -20,10 +20,11 @@ class ArithmeticTests : public BaseTests {
  public:
   template<typename LT, typename RT, typename T>
   ArithmeticTests& test(LT lhs, const RT& rhs, const T& res) {
+    INFO("Test number " << idx);
     if constexpr ((OPT & ArithmeticTestsFlags::NoOperation) == 0) {
-      EXPECT_EQ(operation(lhs, rhs), res) << failed_message();
+      CHECK(operation(lhs, rhs) == res);
       if constexpr ((OPT & ArithmeticTestsFlags::NoOperationSwap) == 0)
-        EXPECT_EQ(operation(rhs, lhs), inverse(res)) << failed_message();
+        CHECK(operation(rhs, lhs) == inverse(res));
     }
     if constexpr ((OPT & ArithmeticTestsFlags::NoAssignmentOperation) == 0) {
       test_assignment(lhs, rhs, static_cast<LT>(res));
@@ -35,9 +36,9 @@ class ArithmeticTests : public BaseTests {
  private:
   template<typename LT, typename RT, typename T>
   void test_assignment(LT lhs, const RT& rhs, const T& res) {
-    EXPECT_EQ(assignment_operation(lhs, rhs), res) << failed_message();
-    EXPECT_EQ(lhs, res) << failed_message();
-  }  // LCOV_EXCL_LINE
+    CHECK(assignment_operation(lhs, rhs) == res);
+    CHECK(lhs == res);
+  }
   template<typename T>
   inline auto inverse(const T& val) const {
     if constexpr (OP == ArithmeticOperation::Subtraction) return -val;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_tests.hpp"
-#include <gtest/gtest.h>
+#include <catch2/catch_test_macros.hpp>
 
 namespace math::testing {
 
@@ -9,7 +9,8 @@ class ExplicitConversionTests : public BaseTests {
  public:
   template<typename LT, typename RT>
   ExplicitConversionTests& test(const LT& val, const RT& res) {
-    EXPECT_EQ(static_cast<RT>(val), res) << failed_message();
+    INFO("Test number " << idx);
+    CHECK(static_cast<RT>(val) == res);
     return next<ExplicitConversionTests>();
   }  // LCOV_EXCL_LINE
 };

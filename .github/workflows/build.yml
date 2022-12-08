@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install build dependencies
+      - name: Install Ninja
         run: sudo apt install ninja-build
 
       - name: Configure CMake
@@ -29,7 +29,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install build dependencies
+      - name: Install Ninja
         run: sudo apt install ninja-build
 
       - name: Configure CMake
@@ -41,17 +41,25 @@ jobs:
       - name: Run tests
         run: ctest --verbose --test-dir build --no-compress-output -T Test || true
 
-      - name: Send test result to Testspace
+      - name: Download Testspace client
+        run: curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux.tgz | tar -zxvf- -C build
+
+      - name: Configure Testspace client
+        working-directory: build
         run: |
-          curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux.tgz | tar -zxvf- -C build
-          build/testspace config url ${{ secrets.TESTSPACE_URL }}
-          build/testspace config project ${{ secrets.TESTSPACE_PROJECT }}
-          build/testspace config space ${{ github.ref_name }}
-          build/testspace [Tests]"build/Testing/*/Test.xml"
+          ./testspace config url ${{ secrets.TESTSPACE_URL }}
+          ./testspace config project ${{ secrets.TESTSPACE_PROJECT }}
+          ./testspace config space ${{ github.ref_name }}
+
+      - name: Send test result to Testspace
+        working-directory: build
+        run: ./testspace [Tests]"Testing/*/Test.xml"
+
+      - name: Install lcov
+        run: sudo apt install lcov
 
       - name: Generate code coverage info
         run: |
-          sudo apt install lcov
           lcov --directory . --capture --no-external --output-file build/coverage.info
           lcov --remove build/coverage.info "*/build/*" --output-file build/coverage.info
 

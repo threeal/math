@@ -50,7 +50,7 @@ class InsideOutsideTests : public math::testing::BaseTests {
     CHECK(limit.is_inside(val) == is_inside);
     CHECK(limit.is_outside(val) != is_inside);
     return next<InsideOutsideTests>();
-  }  // LCOV_EXCL_LINE
+  }
 };
 }
 

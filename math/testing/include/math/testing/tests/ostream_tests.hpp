@@ -18,6 +18,6 @@ class OstreamTests : public BaseTests{
     ss << val;
     CHECK(std::strcmp(ss.str().c_str(), c_str) == 0);
     return next<OstreamTests>();
-  }  // LCOV_EXCL_LINE
+  }
 };
 }

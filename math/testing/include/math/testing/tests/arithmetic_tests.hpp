@@ -32,7 +32,7 @@ class ArithmeticTests : public BaseTests {
         test_assignment(rhs, lhs, static_cast<RT>(inverse(res)));
     }
     return next<ArithmeticTests>();
-  }  // LCOV_EXCL_LINE
+  }
  private:
   template<typename LT, typename RT, typename T>
   void test_assignment(LT lhs, const RT& rhs, const T& res) {

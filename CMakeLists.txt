@@ -7,7 +7,7 @@ project(math)
 
 if(BUILD_TESTING)
   enable_testing()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -coverage")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage -g -O0")
   add_subdirectory(math/testing)
 endif()
 

@@ -15,6 +15,6 @@ class EqualityTests : public BaseTests {
     CHECK((rhs == lhs) == expect_equal);
     CHECK((rhs != lhs) != expect_equal);
     return next<EqualityTests>();
-  }  // LCOV_EXCL_LINE
+  }
 };
 }

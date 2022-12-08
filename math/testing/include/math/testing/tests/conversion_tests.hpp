@@ -12,6 +12,6 @@ class ExplicitConversionTests : public BaseTests {
     INFO("Test number " << idx);
     CHECK(static_cast<RT>(val) == res);
     return next<ExplicitConversionTests>();
-  }  // LCOV_EXCL_LINE
+  }
 };
 }

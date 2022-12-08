@@ -13,6 +13,6 @@ class NegationTests : public BaseTests {
     CHECK(-val == res);
     CHECK(-(-val) == val);
     return next<NegationTests>();
-  }  // LCOV_EXCL_LINE
+  }
 };
 }

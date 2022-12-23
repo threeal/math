@@ -5,7 +5,7 @@
 
 namespace math {
 
-template<typename T>
+template <typename T>
 struct Limit {
   using value_type = T;
 
@@ -13,30 +13,25 @@ struct Limit {
 
   Limit<T> normalize() const {
     if (min <= max) return *this;
-    return {.min=max, .max=min};
+    return {.min = max, .max = min};
   }
 
-  auto center() const {
-    return (min + max) / 2;
-  }
+  auto center() const { return (min + max) / 2; }
+  auto range() const { return max - min; }
 
-  auto range() const {
-    return max - min;
-  }
-
-  template<typename OT>
+  template <typename OT>
   bool is_inside(const OT& other) const {
     if (min > max) return normalize().is_inside(other);
     return other >= min && other <= max;
   }
 
-  template<typename OT>
+  template <typename OT>
   bool is_outside(const OT& other) const {
     if (min > max) return normalize().is_outside(other);
     return other < min || other > max;
   }
 
-  template<typename OT>
+  template <typename OT>
   T clamp(const OT& other) const {
     if (min > max) return normalize().clamp(other);
     if (other < min) return min;
@@ -44,7 +39,7 @@ struct Limit {
     return other;
   }
 
-  template<typename OT>
+  template <typename OT>
   T fold(const OT& other) const {
     if (min > max) return normalize().fold(other);
     const auto range = this->range();
@@ -52,23 +47,23 @@ struct Limit {
   }
 };
 
-template<typename T>
+template <typename T>
 inline math::Limit<T> make_limit(const T& min, const T& max) {
-  return {.min=min, .max=max};
+  return {.min = min, .max = max};
 }
 
-template<typename T>
+template <typename T>
 std::ostream& operator<<(std::ostream& out, const Limit<T>& limit) {
   return out << "{min: " << limit.min << ", max: " << limit.max << "}";
 }
 
-template<typename LT, typename RT>
+template <typename LT, typename RT>
 bool operator==(const Limit<LT>& lhs, const Limit<RT>& rhs) {
   return lhs.min == rhs.min && lhs.max == rhs.max;
 }
 
-template<typename LT, typename RT>
+template <typename LT, typename RT>
 bool operator!=(const Limit<LT>& lhs, const Limit<RT>& rhs) {
   return lhs.min != rhs.min || lhs.max != rhs.max;
 }
-}
+}  // namespace math

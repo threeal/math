@@ -1,17 +1,19 @@
 #pragma once
 
-#include "base_tests.hpp"
 #include <catch2/catch_test_macros.hpp>
-#include <sstream>
 #include <cstring>
+#include <sstream>
+
+#include "base_tests.hpp"
 
 namespace math::testing {
 
-class OstreamTests : public BaseTests{
+class OstreamTests : public BaseTests {
  private:
   std::stringstream ss;
+
  public:
-  template<typename T>
+  template <typename T>
   OstreamTests& test(const T& val, const char* c_str) {
     INFO("Test number " << idx);
     ss.str(std::string());
@@ -20,4 +22,4 @@ class OstreamTests : public BaseTests{
     return next<OstreamTests>();
   }
 };
-}
+}  // namespace math::testing

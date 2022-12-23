@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(math)
 
+include(cmake/CPM.cmake)
+cpmaddpackage("gh:TheLartians/Format.cmake@1.7.3")
+
 if(BUILD_TESTING)
   enable_testing()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage -g -O0")

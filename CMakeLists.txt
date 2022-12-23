@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 set(CMAKE_CXX_STANDARD 17)
 
 project(math)
@@ -10,7 +9,12 @@ cpmaddpackage("gh:TheLartians/Format.cmake@1.7.3")
 
 if(BUILD_TESTING)
   enable_testing()
+
+  cpmaddpackage("gh:catchorg/Catch2@3.2.0")
+  include("${Catch2_SOURCE_DIR}/extras/Catch.cmake")
+
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage -g -O0")
+
   add_subdirectory(math/testing)
 endif()
 

@@ -31,6 +31,9 @@ jobs:
       - name: Install LLVM and Ninja
         run: sudo apt install llvm ninja-build
 
+      - name: Install cmake-format
+        run: pip3 install cmake-format
+
       - name: Configure CMake
         run: cmake . -B build -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -DBUILD_TESTING=ON
 

@@ -1,0 +1,41 @@
+name: Deploy
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  deploy-pages:
+    name: Deploy Pages
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-pages.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v4.0.0
+
+      - name: Checkout
+        uses: actions/checkout@v4.1.2
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get install -y doxygen
+          pip3 install breathe sphinx-rtd-theme
+
+      - name: Build Documentation
+        run: sphinx-build -b html docs build/docs -W --keep-going
+
+      - name: Upload Documentation
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: build/docs
+
+      - name: Deploy Pages
+        id: deploy-pages
+        uses: actions/deploy-pages@v4.0.4

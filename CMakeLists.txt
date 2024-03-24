@@ -5,7 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 project(math)
 
 include(cmake/CPM.cmake)
-cpmaddpackage("gh:TheLartians/Format.cmake@1.7.3")
+cpmaddpackage(
+  GITHUB_REPOSITORY TheLartians/Format.cmake
+  VERSION 1.7.3
+  OPTIONS "FORMAT_SKIP_CMAKE ON"
+)
 
 if(BUILD_TESTING)
   enable_testing()

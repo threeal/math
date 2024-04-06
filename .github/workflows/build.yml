@@ -54,4 +54,4 @@ jobs:
         working-directory: build
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: gcovr -r .. --gcov-executable 'llvm-cov gcov' --exclude-directories _deps -e _deps
+        run: gcovr -r .. --gcov-executable 'llvm-cov gcov' --exclude-directories _deps -e _deps --fail-under-line 100

@@ -45,7 +45,7 @@ jobs:
         run: cmake --build build
 
       - name: Run tests
-        run: ctest --verbose --test-dir build
+        uses: threeal/ctest-action@v1.0.0
 
       - name: Install gcovr
         run: pip3 install gcovr

@@ -34,7 +34,7 @@ jobs:
         run: sudo apt install llvm ninja-build
 
       - name: Configure CMake
-        run: cmake . -B build -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -DBUILD_TESTING=ON
+        run: cmake . -B build -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -DMATH_ENABLE_TESTS=ON
 
       - name: Check for code formatting
         run: |

@@ -4,6 +4,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(math)
 
+option(MATH_ENABLE_TESTS "Enable test targets.")
+
 include(cmake/CPM.cmake)
 cpmaddpackage(
   GITHUB_REPOSITORY TheLartians/Format.cmake
@@ -11,7 +13,7 @@ cpmaddpackage(
   OPTIONS "FORMAT_SKIP_CMAKE ON"
 )
 
-if(BUILD_TESTING)
+if(MATH_ENABLE_TESTS)
   enable_testing()
 
   cpmaddpackage(gh:catchorg/Catch2@3.6.0)

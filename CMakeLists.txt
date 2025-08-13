@@ -16,7 +16,7 @@ cpmaddpackage(
 if(MATH_ENABLE_TESTS)
   enable_testing()
 
-  cpmaddpackage(gh:catchorg/Catch2@3.9.0)
+  cpmaddpackage(gh:catchorg/Catch2@3.9.1)
   include("${Catch2_SOURCE_DIR}/extras/Catch.cmake")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage -g -O0")
